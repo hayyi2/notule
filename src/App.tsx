@@ -4,7 +4,7 @@ import { router } from "./Router";
 
 export default function App() {
     return (
-        <ThemeProvider>
+        <ThemeProvider storageKey="notule-ui">
             <RouterProvider router={router} />
         </ThemeProvider>
     )

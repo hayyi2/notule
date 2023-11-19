@@ -1,11 +1,13 @@
 import { PageHeader, PageHeaderHeading } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function Empty() {
+export default function Notes() {
     return (
         <>
             <PageHeader>
-                <PageHeaderHeading>Empty Page</PageHeaderHeading>
+                <PageHeaderHeading>Notes</PageHeaderHeading>
+                <Button>Create Note</Button>
             </PageHeader>
             <Card>
                 <CardHeader>

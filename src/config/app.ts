@@ -11,10 +11,10 @@ interface AppConfig {
 }
 
 export const appConfig: AppConfig = {
-    name: "Sample App",
+    name: "Notule App",
     github: {
-        title: "React Shadcn Starter",
-        url: "https://github.com/hayyi2/react-shadcn-starter",
+        title: "Notule",
+        url: "https://github.com/hayyi2/notule",
     },
     author: {
         name: "hayyi",

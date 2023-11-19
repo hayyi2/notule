@@ -19,6 +19,7 @@ import { ChevronDownIcon, ViewVerticalIcon } from "@radix-ui/react-icons";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Logo } from "../logo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ModeToggle } from "../mode-toggle";
 
 export function Header() {
     const [open, setOpen] = useState(false)
@@ -165,22 +166,7 @@ export function Header() {
                         {/* <CommandMenu /> */}
                     </div>
                     <nav className="flex items-center space-x-2">
-                        <a
-                            href={appConfig.github.url}
-                            title={appConfig.github.title}
-                            target="_blank"
-                            rel="noreferrer">
-                            <div
-                                className={cn(
-                                    buttonVariants({
-                                        variant: "ghost",
-                                    }),
-                                    "w-9 px-0"
-                                )}>
-                                <Icons.gitHub className="h-4 w-4" />
-                                <span className="sr-only">GitHub</span>
-                            </div>
-                        </a>
+                        <ModeToggle />
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button
