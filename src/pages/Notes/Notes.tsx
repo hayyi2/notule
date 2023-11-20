@@ -1,13 +1,15 @@
 import { PageHeader, PageHeaderHeading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { useState } from "react";
 import { CreateNote } from "./CreateNote";
 import { NotesType } from "./notes.type";
 import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Label } from "@radix-ui/react-dropdown-menu";
+import { useAuth } from "@/hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
 const dummyNotes: NotesType = [
     {
@@ -37,6 +39,11 @@ const dummyNotes: NotesType = [
 ]
 
 export default function Notes() {
+    const { user } = useAuth()
+
+    if (user === null) {
+        return <Navigate to="/login" />
+    }
     const [openCreateDialog, setOpenCreateDialog] = useState(false)
     const [openDetailSheet, setOpenDetailSheet] = useState(false)
 
