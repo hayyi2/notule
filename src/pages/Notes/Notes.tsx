@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Moment from "react-moment";
 import { Navigate } from "react-router-dom";
+import TimeAgo from 'react-timeago'
 import {
     ClockIcon,
     Pencil1Icon,
@@ -119,7 +119,7 @@ export default function Notes() {
                                 {note?.updatedAt ? (
                                     <span className="flex items-center">
                                         <ClockIcon className="mr-1" />
-                                        <Moment date={note.updatedAt.toDate()} fromNow></Moment>
+                                        <TimeAgo date={note.updatedAt.toDate()} />
                                     </span>
                                 ) : null}
                                 <span className="hidden group-hover:flex items-center space-x-4 ml-auto">

@@ -1,5 +1,3 @@
-import Moment from "react-moment";
-
 import { NoteType } from "./notes.type";
 import {
     Dialog,
@@ -10,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { formatDatetime } from "@/lib/utils";
 
 type DetailNoteProps = {
     note: NoteType | null
@@ -33,15 +32,15 @@ export function DetailNote({ note, updateNote, deleteNote, open, onOpenChange }:
                     </div>
                     <div className="space-y-1">
                         <Label>Content</Label>
-                        <p>{(note?.content ?? '-').split('\n').map((str, i) => <p key={i}>{str}</p>)}</p>
+                        {(note?.content ?? '-').split('\n').map((str, i) => <p key={i}>{str}</p>)}
                     </div>
                     <div className="space-y-1">
                         <Label>Updated</Label>
-                        <p><Moment date={note?.updatedAt.toDate()} format="YYYY MMM DD HH:mm"></Moment></p>
+                        <p>{note?.updatedAt ? formatDatetime(note.updatedAt.toDate()) : '-'}</p>
                     </div>
                     <div className="space-y-1">
                         <Label>Created</Label>
-                        <p><Moment date={note?.createdAt.toDate()} format="YYYY MMM DD HH:mm"></Moment></p>
+                        <p>{note?.createdAt ? formatDatetime(note.createdAt.toDate()) : '-'}</p>
                     </div>
                 </div>
                 <DialogFooter>
