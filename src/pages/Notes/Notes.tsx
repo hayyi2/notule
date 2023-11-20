@@ -36,10 +36,6 @@ export default function Notes() {
     const [notes, setNotes] = useState<NotesType>([]);
     const [note, setNote] = useState<NoteType | null>(null);
 
-    if (user === null) {
-        return <Navigate to="/login" />
-    }
-
     useEffect(() => {
         let unsubscrbe = () => { }
         if (!user?.uid) {
@@ -82,6 +78,10 @@ export default function Notes() {
         setNote(note)
         setOpenDetailDialog(false)
         setOpenDeleteDialog(true)
+    }
+
+    if (user === null) {
+        return <Navigate to="/login" />
     }
 
     return (

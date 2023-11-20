@@ -33,7 +33,7 @@ export function DetailNote({ note, updateNote, deleteNote, open, onOpenChange }:
                     </div>
                     <div className="space-y-1">
                         <Label>Content</Label>
-                        <p>{(note?.content ?? '-').split('\n').map(str => <p>{str}</p>)}</p>
+                        <p>{(note?.content ?? '-').split('\n').map((str, i) => <p key={i}>{str}</p>)}</p>
                     </div>
                     <div className="space-y-1">
                         <Label>Updated</Label>
