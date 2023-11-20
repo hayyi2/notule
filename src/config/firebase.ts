@@ -1,11 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { connectAuthEmulator, getAuth, GoogleAuthProvider } from "firebase/auth";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyCnomggsa6YSS5vu71nxeMKErJ2yK1eNrY",
     authDomain: "notule.firebaseapp.com",
@@ -16,6 +12,14 @@ const firebaseConfig = {
     measurementId: "G-M9GEYMFTL0"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+export const db = getFirestore(app);
+export const provider = new GoogleAuthProvider();
+export const auth = getAuth();
+
+// if (process.env.NODE_ENV === 'development') {
+//     console.log("use local emulator")
+//     connectFirestoreEmulator(db, 'localhost', 8080);
+//     connectAuthEmulator(auth, "http://127.0.0.1:9099")
+// }

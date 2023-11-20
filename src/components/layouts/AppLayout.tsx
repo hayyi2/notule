@@ -7,8 +7,8 @@ export function Applayout() {
         <>
             <Header />
             <div className="flex-grow flex flex-col">
-                <div className="container px-4 md:px-8 flex-grow">
-                    <div className="flex-grow max-w-3xl w-100% mx-auto">
+                <div className="container px-4 md:px-8 flex-grow flex flex-col">
+                    <div className="flex-grow flex flex-col max-w-3xl w-full mx-auto">
                         <Outlet />
                     </div>
                 </div>

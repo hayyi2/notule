@@ -167,7 +167,11 @@ export function Header() {
                     </div>
                     <nav className="flex items-center space-x-2">
                         <ModeToggle />
-                        <DropdownMenu>
+                        <NavLink to="/login"
+                            className={buttonVariants({variant: "ghost"})}>Sign in</NavLink>
+                        <NavLink to="/register"
+                            className={buttonVariants({variant: "outline"})}>Sign up</NavLink>
+                        {/* <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button
                                     variant='ghost'
@@ -189,7 +193,7 @@ export function Header() {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>Log out</DropdownMenuItem>
                             </DropdownMenuContent>
-                        </DropdownMenu>
+                        </DropdownMenu> */}
                     </nav>
                 </div>
             </div>
