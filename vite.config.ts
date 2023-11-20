@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import { esbuildCommonjs } from '@originjs/vite-plugin-commonjs';
 
-const basenameProd = '/react-shadcn-starter'
+const basenameProd = '/notule'
 
 export default defineConfig(({ command }) => {
   const isProd = command === 'build'
