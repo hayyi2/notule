@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore"
+import { FieldValue, Timestamp } from "firebase/firestore"
 import * as z from "zod"
 
 export const NoteInputSchema = z.object({
@@ -17,13 +17,19 @@ export type NoteInputType = z.infer<typeof NoteInputSchema>
 
 export type NoteType = {
     id: string
-    userId: string
+    author: string
     title: string
     content: string
-    // createdAt: Timestamp
-    // updatedAt: Timestamp
-    createdAt: number
-    updatedAt: number
+    createdAt: Timestamp
+    updatedAt: Timestamp
+}
+
+export type NoteFormType = {
+    author?: string
+    title: string
+    content: string
+    createdAt?: FieldValue
+    updatedAt?: FieldValue
 }
 
 export type NotesType = NoteType[]

@@ -1,15 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    addDoc,
-    collection,
-    serverTimestamp
-} from "firebase/firestore";
+import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 import { db } from "@/config/firebase";
 import { useAuth } from "@/hooks/useAuth";
-
 import { useToast } from "@/components/ui/use-toast";
 import {
     Dialog,
@@ -20,20 +15,21 @@ import {
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-
 import {
     NoteFormType,
     NoteInputSchema,
-    NoteInputType
+    NoteInputType,
+    NoteType
 } from "./notes.type";
 import { InputNote } from "./InputNote";
 
-type CreateNoteProps = {
+type UpdateNoteProps = {
+    note: NoteType | null
     open: boolean
     onOpenChange: (open: boolean) => void;
 }
 
-export function CreateNote({ open, onOpenChange }: CreateNoteProps) {
+export function UpdateNote({ note, open, onOpenChange }: UpdateNoteProps) {
     const { user } = useAuth()
     const { toast } = useToast()
     const [submitLoading, setSubmitLoading] = useState(false)
@@ -46,21 +42,28 @@ export function CreateNote({ open, onOpenChange }: CreateNoteProps) {
         },
     })
 
+    useEffect(() => {
+        form.reset({
+            title: note?.title,
+            content: note?.content,
+        })
+    }, [note?.title, note?.content])
+
     const onSubmit = async (noteValues: NoteInputType) => {
-        if (!user?.uid || submitLoading) {
+        if (!user?.uid || !note?.id || submitLoading) {
             return
         }
 
         setSubmitLoading(true)
         const noteFormData: NoteFormType = {
-            author: user.uid ?? "",
             ...noteValues,
             updatedAt: serverTimestamp(),
-            createdAt: serverTimestamp(),
         }
-        await addDoc(collection(db, "notes"), noteFormData)
+        console.log(noteFormData)
+        await updateDoc(doc(db, 'notes', note.id), noteFormData)
+
         form.reset()
-        toast({ title: "Note created successfully", })
+        toast({ title: "Note updated successfully", })
         onOpenChange(false)
         setSubmitLoading(false)
     }
@@ -71,7 +74,7 @@ export function CreateNote({ open, onOpenChange }: CreateNoteProps) {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <DialogHeader>
-                            <DialogTitle>Create Note</DialogTitle>
+                            <DialogTitle>Update Note</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-4">
                             <InputNote form={form} />
@@ -83,7 +86,7 @@ export function CreateNote({ open, onOpenChange }: CreateNoteProps) {
                             <Button
                                 disabled={submitLoading}
                                 type="submit">
-                                {submitLoading ? "Loading ..." : "Create Note"}
+                                {submitLoading ? "Loading ..." : "Save Change"}
                             </Button>
                         </DialogFooter>
                     </form>
