@@ -4,6 +4,8 @@ Simple private notes created with react + firebase.
 
 Project ini hanya project **just for fun**, project ini aku gunakan untuk mempelajari react dan firebase.
 
+Firebase role dan index ada di repository [notule-firebase](https://github.com/hayyi2/notule-firebase)
+
 ## Getting Started
 
 ```
@@ -13,18 +15,22 @@ npm install
 npm run dev
 ```
 
+Setting firebase config di `src/config/firebase.ts` 
+
 ## Getting Done
 
 ### MVP
 Mempelajari basic auth dan crud data.
-- [ ] Firebase auth
-- [ ] Firebase crud notes
+- [x] Firebase auth
+- [x] Firebase crud notes
+- [ ] Penambahan loading menampilkan halaman terautentikasi atau belum terautentikasi 
+- [ ] Penambahan loading sebelum menampilkan list/empty
 
 ### Next
 Mempelajari crud related data.
-- [ ] Firebase crud tags
-- [ ] Firebase share note or tag
-- [ ] Firebase crud comments
+- Firebase crud tags
+- Firebase share note or tag
+- Firebase crud comments
 
 ## License
 
