@@ -23,8 +23,9 @@ Setting firebase config di `src/config/firebase.ts`
 Mempelajari basic auth dan crud data.
 - [x] Firebase auth
 - [x] Firebase crud notes
-- [ ] Penambahan loading menampilkan halaman terautentikasi atau belum terautentikasi 
-- [ ] Penambahan loading sebelum menampilkan list/empty
+- [x] Penambahan loading menampilkan halaman terautentikasi atau belum terautentikasi 
+- [x] Penambahan loading sebelum menampilkan list/empty
+- [x] Pesan sukses login
 
 ### Next
 Mempelajari crud related data.

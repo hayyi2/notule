@@ -30,11 +30,13 @@ import { CreateNote } from "./CreateNote";
 import { DeleteNote } from "./DeleteNote";
 import { UpdateNote } from "./UpdateNote";
 import { DetailNote } from "./DetailNote";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Notes() {
     const { user } = useAuth()
     const [notes, setNotes] = useState<NotesType>([]);
     const [note, setNote] = useState<NoteType | null>(null);
+    const [loadingInit, setLoadingInit] = useState(true);
 
     useEffect(() => {
         let unsubscrbe = () => { }
@@ -48,6 +50,7 @@ export default function Notes() {
             orderBy('updatedAt', 'desc')
         )
         unsubscrbe = onSnapshot(q, (querySnapshot) => {
+            setLoadingInit(false)
             setNotes(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as NoteType)))
         })
         return () => unsubscrbe()
@@ -95,7 +98,14 @@ export default function Notes() {
                 <Button onClick={() => createNote()}>Create Note</Button>
             </PageHeader>
             <div className="space-y-4">
-                {notes.length === 0 ? (
+                {loadingInit ? (
+                    <Card className="group">
+                        <CardHeader>
+                            <Skeleton className="w-full h-5 rounded-lg" />
+                            <Skeleton className="w-1/4 h-4 rounded-lg" />
+                        </CardHeader>
+                    </Card>
+                ) : (notes.length === 0 ? (
                     <Button
                         onClick={() => createNote()}
                         variant="outline"
@@ -141,7 +151,7 @@ export default function Notes() {
                             </CardDescription>
                         </CardHeader>
                     </Card>
-                ))}
+                )))}
             </div>
         </>
     )

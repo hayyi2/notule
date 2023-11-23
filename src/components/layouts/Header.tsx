@@ -26,7 +26,7 @@ import { AvatarImage } from "@radix-ui/react-avatar";
 export function Header() {
     const location = useLocation();
     const [open, setOpen] = useState(false)
-    const { user, logout } = useAuth()
+    const { user, loadingAuth, logout } = useAuth()
 
     return (
         <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur">
@@ -170,7 +170,7 @@ export function Header() {
                     </div>
                     <nav className="flex items-center space-x-2">
                         <ModeToggle />
-                        {user?.uid ? (
+                        {!loadingAuth ? (user?.uid ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button
@@ -209,7 +209,7 @@ export function Header() {
                                     Sign in
                                 </NavLink>
                             </>
-                        )}
+                        )) : null}
                     </nav>
                 </div>
             </div>

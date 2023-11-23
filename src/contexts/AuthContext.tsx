@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import { auth, provider } from "../config/firebase"
 import { User, signInWithPopup } from "firebase/auth"
+import { useToast } from "@/components/ui/use-toast"
 
 type AuthProviderProps = {
     children: React.ReactNode
@@ -8,23 +9,28 @@ type AuthProviderProps = {
 
 export type AuthProviderState = {
     user: User | null
+    loadingAuth: boolean
     login: () => Promise<void>
     logout: () => Promise<void>
 }
 
 const initialState = {
     user: null,
-    login: async () => {},
-    logout: async () => {},
+    loadingAuth: true,
+    login: async () => { },
+    logout: async () => { },
 }
 
 export const AuthProviderContext = createContext<AuthProviderState>(initialState)
 
 export function AuthProvider({ children, ...props }: AuthProviderProps) {
     const [user, setUser] = useState(auth.currentUser)
+    const [loadingAuth, setLoadingAuth] = useState(true)
+    const { toast } = useToast()
 
     useEffect(() => {
         const unsubscrbe = auth.onAuthStateChanged(user => {
+            setLoadingAuth(false)
             setUser(user)
         })
 
@@ -33,9 +39,10 @@ export function AuthProvider({ children, ...props }: AuthProviderProps) {
 
     const login = async () => {
         try {
-            await signInWithPopup(auth, provider)
+            const { user } = await signInWithPopup(auth, provider)
+            toast({ title: `Login successfully. Hello ${user.displayName} 😊`, })
         } catch (error) {
-            console.error(error)
+            console.error('error', error)
         }
     }
 
@@ -46,6 +53,7 @@ export function AuthProvider({ children, ...props }: AuthProviderProps) {
     return (
         <AuthProviderContext.Provider {...props} value={{
             user,
+            loadingAuth,
             login,
             logout,
         }}>
